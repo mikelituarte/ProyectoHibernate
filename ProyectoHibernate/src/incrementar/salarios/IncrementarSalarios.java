@@ -106,6 +106,7 @@ public class IncrementarSalarios {
 			{
 				empleado = it.next();
 				empleado.setSalary(empleado.getSalary().multiply(bd));
+				System.out.println(empleado);
 				sesion.saveOrUpdate(empleado);
 				
 			}

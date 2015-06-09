@@ -173,7 +173,7 @@ public class Employees implements java.io.Serializable {
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
-		return this.firstName + " " + this.lastName + " " + this.salary;
+		return this.firstName + " " + this.lastName + " " + this.salary.intValue();
 	}
 
 }
