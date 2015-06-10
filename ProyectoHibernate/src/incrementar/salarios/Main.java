@@ -7,7 +7,7 @@ public class Main {
 		try{
 		//i.incrementarSalario20();
 		//i.desconectarBBDD();
-		i.incrementarSalario20();
+		i.decrementarSalario20();
 		}
 		catch(Exception e){
 			
@@ -15,6 +15,6 @@ public class Main {
 		finally{
 		i.desconectarBBDD();
 		}
-		System.out.println("FIN---------------------");
+		System.out.println("---------FIN-PROGRAMA----------------");
 	}
 }

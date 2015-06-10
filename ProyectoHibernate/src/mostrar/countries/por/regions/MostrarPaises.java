@@ -1,12 +1,6 @@
-package incrementar.salarios;
+package mostrar.countries.por.regions;
 
-
-
-
-
-import java.math.BigDecimal;
 import java.sql.Connection;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -17,9 +11,11 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 
 import tablas_Clases.Employees;
+import tablas_Clases.Regions;
 
-public class IncrementarSalarios {
+public class MostrarPaises {
 
+	
 	private static Session sesion;
 	private static Configuration configuration;
 	private static StandardServiceRegistryBuilder builder;
@@ -27,10 +23,8 @@ public class IncrementarSalarios {
 	private static Transaction transaction;
 	private static Connection conexion;
 	
-	/**
-	 * Constructor, establece los valores iniciales para la conexion a la base de datos
-	 */
-	public IncrementarSalarios(){
+	
+	public MostrarPaises(){
 		//Cargo la configuración: MAPPING entre Tablas y Objetos así como La descripción de la base de de datos
     	//Dicho de otra forma: cargamos en memoria en la clase Configuration el hibernate.cfg.xml
     	configuration = new Configuration().configure();
@@ -48,20 +42,16 @@ public class IncrementarSalarios {
     	conexion = sesion.disconnect();
 	}
 	
+	
 	/**
 	 * Activa la sesion asiganando al atributo sesion el valor de la sesion actual
 	 */
 	private static void activarSesion(){
-		//sesion.reconnect(conexion);
-		//sesion = factory.getCurrentSession();
 		if(!sesion.isConnected()){
 			sesion = factory.getCurrentSession();
 		}
-
-
-		
-		
 	}
+	
 	
 	/**
 	 * Desconexta la sesion
@@ -74,37 +64,31 @@ public class IncrementarSalarios {
 	 * Cierra la sesion y el factory
 	 */
 	public static void desconectarBBDD(){
-		//sesion.disconnect();
 		sesion.close();
 		factory.close();
 	}
 	
-	
-	
-	/**
-	 * Incrementa el salario de los empleados del departamentos de Ventas en un 20%
-	 */
-	public static void incrementarSalario20(){
-		BigDecimal bd = new BigDecimal(1.2);
+	public void mostrarPaises(){
+		ToStringSet ts = null;
 		try 
     	{
 			//obtenemos los Empleados...
 			activarSesion();
 	    	transaction = sesion.beginTransaction();
 	    	@SuppressWarnings("unchecked")									
-	    	List<Employees> lista = sesion.createSQLQuery("SELECT * FROM EMPLOYEES WHERE DEPARTMENT_ID = (SELECT DEPARTMENT_ID FROM DEPARTMENTS WHERE DEPARTMENT_NAME LIKE 'Sales')").addEntity(Employees.class).list();
-	    	//aumentamos el sueldo...	
-			Iterator<Employees> it = lista.iterator();
-			Employees empleado;
-			while (it.hasNext())
-			{
-				empleado = it.next();
-				empleado.setSalary(empleado.getSalary().multiply(bd));
-				System.out.println(empleado);
-				//sesion.saveOrUpdate(empleado);//no hace falta porque esta en persistent
-				
+	    	List<Regions> lista = sesion.createSQLQuery("select * from regions").addEntity(Regions.class).list();
+	    	//aumentamos el sueldo...
+	    	Regions r = null;
+			Iterator<Regions> it = lista.iterator();
+			while (it.hasNext()){
+				r = it.next();
+				System.out.println("----------------------------------");
+				System.out.println("Continente: " + r.getRegionName());
+				//System.out.println(r.getCountrieses());
+				ts = new ToStringSet(r.getCountrieses());
+				System.out.println(ts);
+				System.out.println("----------------------------------");
 			}
-	    	transaction.commit();
     	}
     	catch (Exception e)
     	{
@@ -115,40 +99,9 @@ public class IncrementarSalarios {
 			
 		}
 	}
-	 
-	 /**
-	  * Decrementa el salario de los empleados del departamentos de Ventas en un 20%
-	  */
-	 public static void decrementarSalario20(){
-		BigDecimal bd = new BigDecimal(0.8);
-		try 
-    	{
-			//obtenemos los Empleados...
-			activarSesion();
-	    	transaction = sesion.beginTransaction();
-	    	@SuppressWarnings("unchecked")									
-	    	List<Employees> lista = sesion.createSQLQuery("SELECT * FROM EMPLOYEES WHERE DEPARTMENT_ID = (SELECT DEPARTMENT_ID FROM DEPARTMENTS WHERE DEPARTMENT_NAME LIKE 'Sales')").addEntity(Employees.class).list();
-	    	//aumentamos el sueldo...	
-			Iterator<Employees> it = lista.iterator();
-			Employees empleado;
-			while (it.hasNext())
-			{
-				empleado = it.next();
-				empleado.setSalary(empleado.getSalary().multiply(bd));
-				System.out.println(empleado);
-				//sesion.saveOrUpdate(empleado);//no hace falta porque esta en persistent
-				
-			}
-	    	transaction.commit();
-    	}
-    	catch (Exception e)
-    	{
-    		transaction.rollback();//si algo ha ido mal, deshago la transacción
-    	}
-		finally{
-			cerrarSesion();
-			
-		}
+	
+	public void borrarRegion(){
+		
 	}
 	
 	
