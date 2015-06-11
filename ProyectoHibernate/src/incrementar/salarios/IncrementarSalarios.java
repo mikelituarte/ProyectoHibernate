@@ -57,10 +57,6 @@ public class IncrementarSalarios {
 		if(!sesion.isConnected()){
 			sesion = factory.getCurrentSession();
 		}
-
-
-		
-		
 	}
 	
 	/**
