@@ -15,5 +15,9 @@ public class SuperClaseDAO {
 		this.sesion = sesion;
 	}
 	
+	public void cerrarSesion(){
+		this.sesion.disconnect();
+		this.sesion.close();
+	}
 	
 }

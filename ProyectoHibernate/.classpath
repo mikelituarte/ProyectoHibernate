@@ -28,5 +28,7 @@
 	<classpathentry kind="lib" path="C:/Users/alumno/Desktop/Mikel/Curso703/ojdbc14.jar"/>
 	<classpathentry kind="lib" path="C:/Users/alumno/Desktop/Mikel/Curso703/JDom/jdom-2.0.6-junit.jar"/>
 	<classpathentry kind="lib" path="C:/Users/alumno/Desktop/Mikel/Curso703/JDom/jdom-2.0.6-sources.jar"/>
+	<classpathentry kind="lib" path="C:/Users/alumno/Desktop/Mikel/Curso703/log4j-all-1.3alpha-8.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/3"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

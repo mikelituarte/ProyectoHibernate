@@ -12,7 +12,7 @@ public class SesionManager {
 	
 	//private static SessionFactory sesionFactory;
 	
-	private static Session sesion;
+	private  Session sesion;
 	private static Configuration configuration;
 	private static StandardServiceRegistryBuilder builder;
 	private static SessionFactory factory;

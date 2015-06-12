@@ -176,4 +176,12 @@ public class Employees implements java.io.Serializable {
 		return this.firstName + " " + this.lastName + " " + this.salary.intValue();
 	}
 
+	@Override
+	public boolean equals(Object arg0) {
+		// TODO Auto-generated method stub
+		Employees e = (Employees)arg0;
+		return (this.employeeId == e.getEmployeeId() && this.firstName.equals(e.getFirstName()));
+	}
+
+
 }

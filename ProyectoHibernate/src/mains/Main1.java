@@ -35,8 +35,8 @@ public class Main1 {
 		EmployeesServices es = new EmployeesServices();
 		//System.out.println(es.incrementarSalario());*/
 		EmployeesServices es = new EmployeesServices();
-		System.out.println(es.read(105));
-		
+		//System.out.println(es.read(105));
+		System.out.println(es.obtenerEmpleados());
 		//System.out.println(es.insertarEmpleado(empleado));
 		es.desconectarServicio();
 		System.out.println("---- FIN PROGRAMA -----");

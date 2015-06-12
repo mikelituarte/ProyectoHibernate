@@ -38,8 +38,9 @@ public class EmployeesServices {
 			transaccion.rollback();
 		}
 		finally{
-			SesionManager.desconectarSesion();
-			SesionManager.cerrarSesion();
+			//SesionManager.desconectarSesion();
+			//SesionManager.cerrarSesion();
+			empleadoDao.cerrarSesion();
 		}
 		return lista;
 	}
@@ -116,6 +117,13 @@ public class EmployeesServices {
 			SesionManager.cerrarSesion();
 		}
 		return empleado;
+	}
+	
+	public List<Employees> obtenerEmpleadosMejorPagadosPorDepartamento(){
+		List<Employees> lista = null;
+		
+		
+		return lista;
 	}
 	
 	
