@@ -11,7 +11,7 @@ import sesion.manager.SesionManager;
 import tablas_Clases.Employees;
 import clases.dao.EmployeesDAO;
 
-public class EmployeesServices {
+public class EmployeesServices extends ServiciosCRUD {
 	
 	private EmployeesDAO empleadoDao;
 	
@@ -76,7 +76,7 @@ public class EmployeesServices {
 		return lista;
 	}
 	
-	public boolean insertarEmpleado(Employees empleado){
+	/*public boolean insertarEmpleado(Employees empleado){
 		boolean res = false;
 		Transaction transaccion = null;
 		try{
@@ -96,9 +96,9 @@ public class EmployeesServices {
 		}
 		
 		return res;
-	}
+	}*/
 	
-	public Employees read(int id){
+	/*public Employees read(int id){
 		Employees empleado =null;
 		Transaction transaccion = null;
 		try{
@@ -117,10 +117,34 @@ public class EmployeesServices {
 			SesionManager.cerrarSesion();
 		}
 		return empleado;
+	}*/
+	
+	public List<Employees> obtenerEmpleadosPorDepartamento(Object departamento){
+		List<Employees> lista = null;
+		Transaction transaccion = null;
+		try{
+			Session s = SesionManager.getSesion();
+			empleadoDao.setSesion(s);
+			transaccion = s.beginTransaction();
+			lista = empleadoDao.obtenerEmpleadosPorDepartamento(departamento);
+			
+			transaccion.commit();
+		}
+		catch(Exception e){
+			transaccion.rollback();
+		}
+		finally{
+			SesionManager.desconectarSesion();
+			SesionManager.cerrarSesion();
+		}
+		
+		return lista;
 	}
+	
 	
 	public List<Employees> obtenerEmpleadosMejorPagadosPorDepartamento(){
 		List<Employees> lista = null;
+		
 		
 		
 		return lista;

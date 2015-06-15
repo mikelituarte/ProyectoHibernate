@@ -27,7 +27,8 @@ public class TestEmployeesServices extends TestCase {
 		//fail("Not yet implemented");
 		//EmployeesServices servicio = new EmployeesServices();
 		inicioClase();
-		Employees empleado = servicio.read(105);
+
+		Employees empleado = (Employees)servicio.leer(Employees.class,105);
 		assertTrue("El empleado no esta en la lista de empleados ",servicio.obtenerEmpleados().contains(empleado));
 	}
 	
@@ -38,11 +39,11 @@ public class TestEmployeesServices extends TestCase {
 
 	public void testIncrementarSalario() {
 		inicioClase();
-		Employees empleado = servicio.read(105);
+		Employees empleado = (Employees)servicio.leer(Employees.class,105);
 		BigDecimal salario = empleado.getSalary();
 		salario = salarioAumentado(salario);
 		servicio.incrementarSalario();
-		empleado = servicio.read(105);
+		empleado = (Employees)servicio.leer(Employees.class,105);
 		assertEquals("El salario no se ha incrementado correctamente un 20% ",salario.intValue(), empleado.getSalary().intValue());
 	}
 
@@ -54,6 +55,7 @@ public class TestEmployeesServices extends TestCase {
 		Employees empleado = null;
 		Employees empleadoLeido = null;
 		inicioClase();
+		Employees e = null;
 		//EmployeesServices servicio = new EmployeesServices();
 		List<Employees> lista = servicio.obtenerEmpleados();
 		Iterator it = lista.iterator();
@@ -61,7 +63,7 @@ public class TestEmployeesServices extends TestCase {
 			empleado = (Employees)it.next();
 		}
 		empleadoLeido = null;
-		empleadoLeido = servicio.read(empleado.getEmployeeId());
+		empleadoLeido = (Employees)servicio.leer(Employees.class,empleado.getEmployeeId());
 		assertNotNull(empleadoLeido);
 	}
 

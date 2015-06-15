@@ -82,4 +82,10 @@ public class Jobs implements java.io.Serializable {
 		this.jobHistories = jobHistories;
 	}
 
+	@Override
+	public String toString() {
+		return "jobId=" + jobId + "\n jobTitle=" + jobTitle
+				+ "\n minSalary=" + minSalary + "\n maxSalary=" + maxSalary;
+	}
+
 }
