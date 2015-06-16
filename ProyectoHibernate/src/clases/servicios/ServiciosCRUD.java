@@ -19,6 +19,10 @@ public class ServiciosCRUD implements InterfaceCRUD{
 		objetoDao = new SuperClaseDAO();
 	}
 	
+	/**
+	 * Inserta el objeto pasado como parametro en la BBDD y retorna el objeto Insertado
+	 */
+	@Override
 	public Object insertar(Object objeto){
 		Transaction transaccion = null;
 		Session sesion = SesionManager.getSesion();
@@ -37,12 +41,18 @@ public class ServiciosCRUD implements InterfaceCRUD{
 		return objeto;
 	}
 
+	/**
+	 * Actualiza el objeto pasado como parametro de la BBDD, retorna el objeto Actualizado
+	 */
 	@Override
 	public Object actualizar(Object objeto) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
+	/**
+	 * Borra el objeto pasado como parametro de la BBDD, retorna el objeto Borrado
+	 */
 	@Override
 	public Object borrar(Object objeto) {
 		Transaction transaccion = null;
@@ -54,6 +64,7 @@ public class ServiciosCRUD implements InterfaceCRUD{
 			transaccion.commit();
 		}
 		catch(Exception e){
+			e.printStackTrace();
 			transaccion.rollback();
 		}
 		finally{
@@ -62,6 +73,10 @@ public class ServiciosCRUD implements InterfaceCRUD{
 		return objeto;
 	}
 
+	/**
+	 * Obtiene un registro de la BBDD dado su tabla (.class) y su identificador
+	 * Retorna el objeto leido de la BBDD
+	 */
 	@Override
 	public Object leer(Class clase, Object id) {
 		// TODO Auto-generated method stub
@@ -86,7 +101,9 @@ public class ServiciosCRUD implements InterfaceCRUD{
 		return objetoLeido;
 	}
 
-	
+	/**
+	 * Desconecta el servicio (cierra el SesionFactory)
+	 */
 	public void desconectarServicio(){
 		SesionManager.cerrarfactory();
 	}

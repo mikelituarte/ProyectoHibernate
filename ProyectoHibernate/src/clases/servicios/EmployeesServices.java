@@ -21,6 +21,10 @@ public class EmployeesServices extends ServiciosCRUD {
 		empleadoDao = new EmployeesDAO();
 	}
 	
+	/**
+	 * Metodo que obtiene todos los empleados
+	 * @return Devuelve una lista con los todos los empleados
+	 */
 	public List<Employees> obtenerEmpleados(){
 		List<Employees> lista = null;
 		Transaction transaccion = null;
@@ -45,6 +49,10 @@ public class EmployeesServices extends ServiciosCRUD {
 		return lista;
 	}
 	
+	/**
+	 * Metodo para incrementar el salario a todos los empleados
+	 * @return Devuelve un lista con todos los empleados a los que le ha incrementado el salario
+	 */
 	public List<Employees> incrementarSalario(){
 		List<Employees> lista = null;
 		Transaction transaccion = null;
@@ -67,6 +75,7 @@ public class EmployeesServices extends ServiciosCRUD {
 			transaccion.commit();
 		}
 		catch(Exception e){
+			e.printStackTrace();
 			transaccion.rollback();
 		}
 		finally{
@@ -76,57 +85,19 @@ public class EmployeesServices extends ServiciosCRUD {
 		return lista;
 	}
 	
-	/*public boolean insertarEmpleado(Employees empleado){
-		boolean res = false;
-		Transaction transaccion = null;
-		try{
-			Session s = SesionManager.getSesion();
-			empleadoDao.setSesion(s);
-			transaccion = s.beginTransaction();
-			res = empleadoDao.insertar(empleado);
-			if (res)
-				transaccion.commit();
-		}
-		catch(Exception e){
-			transaccion.rollback();
-		}
-		finally{
-			SesionManager.desconectarSesion();
-			SesionManager.cerrarSesion();
-		}
-		
-		return res;
-	}*/
-	
-	/*public Employees read(int id){
-		Employees empleado =null;
-		Transaction transaccion = null;
-		try{
-			Session s = SesionManager.getSesion();
-			empleadoDao.setSesion(s);
-			transaccion = s.beginTransaction();
-			empleado = (Employees)empleadoDao.read(id);
-			
-			transaccion.commit();
-		}
-		catch(Exception e){
-			transaccion.rollback();
-		}
-		finally{
-			SesionManager.desconectarSesion();
-			SesionManager.cerrarSesion();
-		}
-		return empleado;
-	}*/
-	
-	public List<Employees> obtenerEmpleadosPorDepartamento(Object departamento){
+	/**
+	 * Metodo para obtener una lista de los empleados  de un departamento pasado como parametro
+	 * @param departamento_id Es el ID del departamento del que se quiere obtener sus empleados
+	 * @return Devuelve una lista de empleados con todos los empleados del departamento pasado como parametro
+	 */
+	public List<Employees> obtenerEmpleadosPorDepartamento(short departamento_id){
 		List<Employees> lista = null;
 		Transaction transaccion = null;
 		try{
 			Session s = SesionManager.getSesion();
 			empleadoDao.setSesion(s);
 			transaccion = s.beginTransaction();
-			lista = empleadoDao.obtenerEmpleadosPorDepartamento(departamento);
+			lista = empleadoDao.obtenerEmpleadosPorDepartamento(departamento_id);
 			
 			transaccion.commit();
 		}
@@ -141,16 +112,36 @@ public class EmployeesServices extends ServiciosCRUD {
 		return lista;
 	}
 	
-	
+	/**
+	 * Metodo para obtener una lista con el empleado mejor pagado de cada departamento
+	 * @return Devuelve una lista con el empleados mejor pagado de cada departamento
+	 */
 	public List<Employees> obtenerEmpleadosMejorPagadosPorDepartamento(){
 		List<Employees> lista = null;
 		
-		
+		Transaction transaccion = null;
+		try{
+			Session s = SesionManager.getSesion();
+			empleadoDao.setSesion(s);
+			transaccion = s.beginTransaction();
+			lista = empleadoDao.getEmpleadosMejorPagadosPorDepartamento();
+			
+			transaccion.commit();
+		}
+		catch(Exception e){
+			transaccion.rollback();
+		}
+		finally{
+			SesionManager.desconectarSesion();
+			SesionManager.cerrarSesion();
+		}
 		
 		return lista;
 	}
 	
-	
+	/**
+	 * Desconecta el servicio; cierra el SesionFactory
+	 */
 	public void desconectarServicio(){
 		SesionManager.cerrarfactory();
 	}

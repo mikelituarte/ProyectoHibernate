@@ -66,6 +66,16 @@ public class TestEmployeesServices extends TestCase {
 		empleadoLeido = (Employees)servicio.leer(Employees.class,empleado.getEmployeeId());
 		assertNotNull(empleadoLeido);
 	}
+	
+	public void testobtenerEmpleadosPorDepartamento() {
+		/*inicioClase();
+		Employees empleado = (Employees)servicio.leer(Employees.class,105);
+		BigDecimal salario = empleado.getSalary();
+		salario = salarioAumentado(salario);
+		servicio.incrementarSalario();
+		empleado = (Employees)servicio.leer(Employees.class,105);
+		assertEquals("El salario no se ha incrementado correctamente un 20% ",salario.intValue(), 10);*/
+	}
 
 	public void testDesconectarServicio() {
 		//fail("Not yet implemented");
