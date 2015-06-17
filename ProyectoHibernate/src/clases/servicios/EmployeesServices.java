@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.Iterator;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -14,7 +15,7 @@ import clases.dao.EmployeesDAO;
 public class EmployeesServices extends ServiciosCRUD {
 	
 	private EmployeesDAO empleadoDao;
-	
+	private final static Logger log = Logger.getLogger("mylog");
 	
 	
 	public EmployeesServices(){
@@ -39,6 +40,7 @@ public class EmployeesServices extends ServiciosCRUD {
 			transaccion.commit();
 		}
 		catch(Exception e){
+			log.error("Error al obtener los empleados en la clase EmployeesSevices");
 			transaccion.rollback();
 		}
 		finally{
@@ -75,6 +77,7 @@ public class EmployeesServices extends ServiciosCRUD {
 			transaccion.commit();
 		}
 		catch(Exception e){
+			log.error("Error al incrementar los salario en la clase EmployeesSevices");
 			e.printStackTrace();
 			transaccion.rollback();
 		}
@@ -102,6 +105,7 @@ public class EmployeesServices extends ServiciosCRUD {
 			transaccion.commit();
 		}
 		catch(Exception e){
+			log.error("Error al obtener los empleados de una departamento en la clase EmployeesSevices");
 			transaccion.rollback();
 		}
 		finally{
@@ -129,6 +133,7 @@ public class EmployeesServices extends ServiciosCRUD {
 			transaccion.commit();
 		}
 		catch(Exception e){
+			log.error("Error al obtener los empleados mejor pagador por departamento los empleados en la clase EmployeesSevices");
 			transaccion.rollback();
 		}
 		finally{

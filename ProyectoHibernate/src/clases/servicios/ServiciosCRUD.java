@@ -1,5 +1,7 @@
 package clases.servicios;
 
+import java.io.Serializable;
+
 import interfaces.InterfaceCRUD;
 
 
@@ -29,10 +31,12 @@ public class ServiciosCRUD implements InterfaceCRUD{
 		objetoDao.setSesion(sesion);
 		try{
 			transaccion = sesion.beginTransaction();
-			objetoDao.insertar(objeto);
+			//objetoDao.insertar(objeto);
+			objetoDao.getSesion().save(objeto);
 			transaccion.commit();
 		}
 		catch(Exception e){
+			e.printStackTrace();
 			transaccion.rollback();
 		}
 		finally{
@@ -46,8 +50,21 @@ public class ServiciosCRUD implements InterfaceCRUD{
 	 */
 	@Override
 	public Object actualizar(Object objeto) {
-		// TODO Auto-generated method stub
-		return null;
+		Transaction transaccion = null;
+		Session sesion = SesionManager.getSesion();
+		objetoDao.setSesion(sesion);
+		try{
+			transaccion = sesion.beginTransaction();
+			objetoDao.getSesion().saveOrUpdate(objeto);
+			transaccion.commit();
+		}
+		catch(Exception e){
+			transaccion.rollback();
+		}
+		finally{
+			objetoDao.cerrarSesion();
+		}
+		return objeto;
 	}
 
 	/**
@@ -60,7 +77,8 @@ public class ServiciosCRUD implements InterfaceCRUD{
 		objetoDao.setSesion(sesion);
 		try{
 			transaccion = sesion.beginTransaction();
-			objetoDao.borrar(objeto);
+			//objetoDao.borrar(objeto);
+			objetoDao.getSesion().delete(objeto);
 			transaccion.commit();
 		}
 		catch(Exception e){
@@ -87,7 +105,8 @@ public class ServiciosCRUD implements InterfaceCRUD{
 			Session s = SesionManager.getSesion();
 			objetoDao.setSesion(s);
 			transaccion = s.beginTransaction();
-			objetoLeido = (Object)objetoDao.leer(clase,id);
+			//objetoLeido = (Object)objetoDao.leer(clase,id);
+			objetoLeido = objetoDao.getSesion().get(clase, (Serializable)id);
 			
 			transaccion.commit();
 		}
